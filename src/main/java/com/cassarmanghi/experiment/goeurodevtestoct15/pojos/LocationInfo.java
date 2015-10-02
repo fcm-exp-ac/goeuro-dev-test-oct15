@@ -8,7 +8,7 @@ public class LocationInfo {
 
     private JsonKeys() {
     }
-    public static final String ID = "__id";
+    public static final String ID = "_id";
     public static final String KEY = "key";
     public static final String NAME = "name";
     public static final String FULL_NAME = "fullName";

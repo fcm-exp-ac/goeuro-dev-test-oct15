@@ -1,10 +1,15 @@
 package com.cassarmanghi.experiment.goeurodevtestoct15;
 
 import com.cassarmanghi.experiment.goeurodevtestoct15.ApiCaller.ApiCallException;
+import com.cassarmanghi.experiment.goeurodevtestoct15.CsvResultWriter.FileExistsException;
 import com.cassarmanghi.experiment.goeurodevtestoct15.pojos.LocationInfo;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GoEuroTest {
 
@@ -36,6 +41,21 @@ public class GoEuroTest {
               + " is nothing else it can do.");
       throw new RuntimeException(ex);
     }
+    if (locations == null || locations.isEmpty()) {
+      System.out.println(String.format("No locations found for query [%s]. "
+              + "Exiting.", cityName));
+      return;
+    }
+    try {
+      CsvResultWriter.outputLocations(locations, csvOutFile);
+    } catch (FileExistsException ex) {
+      System.err.println(ex.getMessage());
+      System.exit(-1);
+    } catch (IOException ex) {
+      System.err.println("IO Error whilst writing to CSV file.");
+      throw new RuntimeException(ex);
+    }
+    System.out.println("Finished.");
   }
 
   private static void printHelpMessage() {

@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -80,7 +81,8 @@ public class ApiCaller {
     final List<LocationInfo> result;
     try (final InputStream is = response.getEntity().getContent();
             final InputStreamReader isr = new InputStreamReader(is)) {
-      result = gson.fromJson(isr, ArrayList.class);
+      final LocationInfo[] deserDat = gson.fromJson(isr, LocationInfo[].class);
+      result = Arrays.asList(deserDat);
     }
     System.out.println(String.format("Deserialised successfully. Found %d "
             + "location info items. API Call took %d millis.", result.size(),
