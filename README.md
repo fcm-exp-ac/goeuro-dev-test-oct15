@@ -3,9 +3,11 @@ Implementation of https://github.com/goeuro/dev-test
 
 Maven project.
 
+```xml
 <groupId>com.cassarmanghi.experiment</groupId>
 <artifactId>GoEuroTest</artifactId>
 <version>1.0.0</version>
+```
 
 Usage:
 
